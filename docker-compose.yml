@@ -1,0 +1,30 @@
+services:
+  # Servicio de Producción (Puerto 8080)
+  yogurt-app-prod:
+    build:
+      context: .
+      target: production
+    container_name: yogurt-manager-prod
+    ports:
+      - "8080:80"
+    env_file:
+      - path: .env
+        required: false
+    restart: unless-stopped
+
+  # Servicio de Desarrollo con Hot-Reload (Puerto 5173)
+  yogurt-app-dev:
+    image: node:20-alpine
+    container_name: yogurt-manager-dev
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    env_file:
+      - path: .env
+        required: false
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    profiles:
+      - dev
