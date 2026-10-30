@@ -1,7 +1,7 @@
 import type { AppBackupData } from '../types';
 import { getInitialBackupData } from './mockData';
 
-const STORAGE_KEY = 'yogurt_manager_store_v1';
+const STORAGE_KEY = 'yogurt_manager_store_v2';
 
 export function loadAppStateFromStorage(): AppBackupData {
   try {

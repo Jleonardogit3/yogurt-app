@@ -310,11 +310,11 @@ export function getInitialBackupData(): AppBackupData {
     version: '1.0.0',
     exported_at: new Date().toISOString(),
     settings: INITIAL_SETTINGS,
-    clients: INITIAL_CLIENTS,
-    batches: INITIAL_BATCHES,
-    productionItems: INITIAL_PRODUCTION_ITEMS,
-    expenses: INITIAL_EXPENSES,
-    sales: INITIAL_SALES,
-    saleItems: INITIAL_SALE_ITEMS,
+    clients: [],
+    batches: [],
+    productionItems: [],
+    expenses: [],
+    sales: [],
+    saleItems: [],
   };
 }
