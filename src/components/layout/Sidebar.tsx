@@ -7,6 +7,7 @@ import {
   Cloud,
   ChevronRight,
   Sparkles,
+  LogOut,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import type { ActiveModule } from '../../types';
@@ -21,7 +22,7 @@ interface NavItem {
 }
 
 export const Sidebar: React.FC = () => {
-  const { activeModule, setActiveModule, pendingSalesCount, setSalesFilter } = useApp();
+  const { activeModule, setActiveModule, pendingSalesCount, setSalesFilter, currentUser, logout } = useApp();
 
   const navItems: NavItem[] = [
     {
@@ -116,8 +117,34 @@ export const Sidebar: React.FC = () => {
         })}
       </div>
 
-      {/* Pie de Barra Lateral: Botón de Instalar + Tarjeta de Info */}
-      <div>
+      {/* Pie de Barra Lateral: Usuario + Botón de Instalar + Tarjeta de Info */}
+      <div className="space-y-2.5">
+        {currentUser && (
+          <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-2.5 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-500 to-indigo-600 text-white flex items-center justify-center font-black text-xs shadow-2xs">
+                {currentUser.charAt(0)}
+              </div>
+              <div className="text-left">
+                <span className="text-xs font-extrabold text-slate-800 block leading-tight">
+                  {currentUser}
+                </span>
+                <span className="text-[10px] text-emerald-600 font-bold block leading-tight">
+                  En línea
+                </span>
+              </div>
+            </div>
+
+            <button
+              onClick={logout}
+              title="Cerrar sesión"
+              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-white rounded-lg transition-colors border border-transparent hover:border-slate-200"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
         <InstallPwaButton variant="sidebar" />
 
         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-4 text-left">

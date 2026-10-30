@@ -10,7 +10,7 @@ services:
     env_file:
       - path: .env
         required: false
-    restart: unless-stopped
+    restart: always
 
   # Servicio de Desarrollo con Hot-Reload (Puerto 5173)
   yogurt-app-dev:
@@ -25,6 +25,7 @@ services:
     env_file:
       - path: .env
         required: false
+    restart: always
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
     profiles:
       - dev

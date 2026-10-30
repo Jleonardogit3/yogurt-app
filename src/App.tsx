@@ -9,10 +9,16 @@ import { SalesView } from './components/modules/sales/SalesView';
 import { ExpensesView } from './components/modules/expenses/ExpensesView';
 import { ClientsView } from './components/modules/clients/ClientsView';
 import { CloudView } from './components/modules/cloud/CloudView';
+import { LoginView } from './components/auth/LoginView';
 import { Wifi, Battery, Monitor } from 'lucide-react';
 
 const MainLayout: React.FC = () => {
-  const { activeModule, isMobileSimulated, setIsMobileSimulated } = useApp();
+  const { activeModule, isMobileSimulated, setIsMobileSimulated, currentUser } = useApp();
+
+  // Si no hay sesión iniciada, mostrar pantalla de inicio de sesión con Jleonardo
+  if (!currentUser) {
+    return <LoginView />;
+  }
 
   const currentTime = new Date().toLocaleTimeString('es-ES', {
     hour: '2-digit',
@@ -91,11 +97,11 @@ const MainLayout: React.FC = () => {
       {/* Barra Superior Global */}
       <Header />
 
-      {/* Contenedor Principal: Sidebar en Desktop + Contenido Central */}
-      <div className="flex-1 flex max-w-7xl w-full mx-auto">
+      {/* Contenedor Principal: Sidebar en Desktop + Contenido Central Ampliado */}
+      <div className="flex-1 flex w-full">
         <Sidebar />
 
-        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 pb-28 lg:pb-10 w-full overflow-x-hidden transition-all duration-300">
+        <main className="flex-1 p-3.5 sm:p-6 lg:p-8 xl:p-10 pb-28 lg:pb-12 w-full overflow-x-hidden transition-all duration-300">
           {activeModule === 'productions' && <ProductionsView />}
           {activeModule === 'sales' && <SalesView />}
           {activeModule === 'expenses' && <ExpensesView />}

@@ -80,6 +80,9 @@ interface AppContextType {
   setOpenSettingsModal: (open: boolean) => void;
   isMobileSimulated: boolean;
   setIsMobileSimulated: React.Dispatch<React.SetStateAction<boolean>>;
+  currentUser: string | null;
+  login: (user: string, pass: string) => boolean;
+  logout: () => void;
   restoreBackup: (data: AppBackupData) => void;
   resetToDemo: () => void;
 }
@@ -94,6 +97,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [openSettingsModal, setOpenSettingsModal] = useState<boolean>(false);
   const [salesFilter, setSalesFilter] = useState<SalesFilterState>({ status: 'all' });
   const [isMobileSimulated, setIsMobileSimulated] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<string | null>(() => {
+    return localStorage.getItem('yogurt_auth_user');
+  });
+
+  const login = useCallback((user: string, pass: string): boolean => {
+    const trimmed = user.trim();
+    if (trimmed.toLowerCase() === 'jleonardo' && pass === 'Yogurtank') {
+      setCurrentUser('Jleonardo');
+      localStorage.setItem('yogurt_auth_user', 'Jleonardo');
+      return true;
+    }
+    return false;
+  }, []);
+
+  const logout = useCallback(() => {
+    setCurrentUser(null);
+    localStorage.removeItem('yogurt_auth_user');
+  }, []);
 
   // Sync to localStorage whenever data changes
   useEffect(() => {
@@ -446,6 +467,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setOpenSettingsModal,
         isMobileSimulated,
         setIsMobileSimulated,
+        currentUser,
+        login,
+        logout,
         restoreBackup,
         resetToDemo,
       }}

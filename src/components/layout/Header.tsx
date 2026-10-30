@@ -7,6 +7,7 @@ import {
   CloudOff,
   Smartphone,
   Monitor,
+  LogOut,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { formatBs } from '../../utils/currency';
@@ -25,6 +26,8 @@ export const Header: React.FC = () => {
     setOpenSettingsModal,
     isMobileSimulated,
     setIsMobileSimulated,
+    currentUser,
+    logout,
   } = useApp();
 
   const handleOpenPendingSales = () => {
@@ -35,8 +38,8 @@ export const Header: React.FC = () => {
   const isCloudConfigured = Boolean(settings.supabase_url && settings.supabase_anon_key);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 py-2.5 sm:py-3 transition-all">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-3 sm:px-6 py-2.5 sm:py-3 transition-all w-full">
+      <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
         {/* Logo / Nombre en Móvil */}
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-rose-500 via-pink-500 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-pink-500/20">
@@ -164,6 +167,26 @@ export const Header: React.FC = () => {
           >
             <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
+
+          {/* Perfil del Usuario y Cerrar Sesión */}
+          {currentUser && (
+            <div className="flex items-center gap-1 sm:gap-1.5 pl-1.5 border-l border-slate-200">
+              <div className="hidden sm:flex items-center gap-1.5 bg-slate-100/90 py-1 px-2.5 rounded-xl border border-slate-200/80">
+                <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-rose-500 to-indigo-600 text-white flex items-center justify-center text-[10px] font-black">
+                  {currentUser.charAt(0)}
+                </div>
+                <span className="text-xs font-bold text-slate-800">{currentUser}</span>
+              </div>
+
+              <button
+                onClick={logout}
+                title="Cerrar Sesión"
+                className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
