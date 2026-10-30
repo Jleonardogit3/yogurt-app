@@ -55,15 +55,15 @@ export const Modal: React.FC<ModalProps> = ({
         onClick={onClose}
       />
 
-      <div className="flex min-h-full items-center justify-center p-3 sm:p-6 text-center">
+      <div className="flex min-h-full items-center sm:items-center justify-center p-2.5 sm:p-6 text-center">
         <div
-          className={`w-full ${maxWidthStyles[maxWidth]} transform overflow-hidden rounded-2xl bg-white p-5 sm:p-6 text-left align-middle shadow-2xl transition-all border border-slate-100 relative z-10`}
+          className={`w-full ${maxWidthStyles[maxWidth]} max-h-[92vh] flex flex-col transform overflow-hidden rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-6 text-left align-middle shadow-2xl transition-all border border-slate-100 relative z-10`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-start justify-between pb-4 border-b border-slate-100">
+          <div className="flex items-start justify-between pb-3 sm:pb-4 border-b border-slate-100 shrink-0">
             <div>
-              <h3 className="text-lg font-bold text-slate-900 leading-6">{title}</h3>
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-6">{title}</h3>
               {subtitle && <p className="text-xs sm:text-sm text-slate-500 mt-0.5">{subtitle}</p>}
             </div>
             <button
@@ -76,7 +76,7 @@ export const Modal: React.FC<ModalProps> = ({
           </div>
 
           {/* Body */}
-          <div className="mt-4">{children}</div>
+          <div className="mt-3 sm:mt-4 overflow-y-auto overscroll-contain pr-1 flex-1">{children}</div>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import type { ActiveModule } from '../../types';
+import { InstallPwaButton } from '../common/InstallPwaButton';
 
 interface NavItem {
   id: ActiveModule;
@@ -115,15 +116,19 @@ export const Sidebar: React.FC = () => {
         })}
       </div>
 
-      {/* Tarjeta de Pie de Barra Lateral */}
-      <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-4 text-left">
-        <div className="flex items-center gap-2 text-indigo-700 font-bold text-xs mb-1">
-          <Sparkles className="w-4 h-4 text-indigo-500" />
-          <span>Local-First & Offline</span>
+      {/* Pie de Barra Lateral: Botón de Instalar + Tarjeta de Info */}
+      <div>
+        <InstallPwaButton variant="sidebar" />
+
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 rounded-2xl p-4 text-left">
+          <div className="flex items-center gap-2 text-indigo-700 font-bold text-xs mb-1">
+            <Sparkles className="w-4 h-4 text-indigo-500" />
+            <span>Local-First & Offline</span>
+          </div>
+          <p className="text-[11px] text-slate-500 leading-relaxed">
+            Tus datos se guardan al instante en tu equipo. Conéctate a Supabase cuando desees respaldar en la nube.
+          </p>
         </div>
-        <p className="text-[11px] text-slate-500 leading-relaxed">
-          Tus datos se guardan al instante en tu equipo. Conéctate a Supabase cuando desees respaldar en la nube.
-        </p>
       </div>
     </aside>
   );

@@ -78,6 +78,8 @@ interface AppContextType {
   pendingSalesTotalBs: number;
   openSettingsModal: boolean;
   setOpenSettingsModal: (open: boolean) => void;
+  isMobileSimulated: boolean;
+  setIsMobileSimulated: React.Dispatch<React.SetStateAction<boolean>>;
   restoreBackup: (data: AppBackupData) => void;
   resetToDemo: () => void;
 }
@@ -91,6 +93,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [bcvLastUpdated, setBcvLastUpdated] = useState<string | null>(null);
   const [openSettingsModal, setOpenSettingsModal] = useState<boolean>(false);
   const [salesFilter, setSalesFilter] = useState<SalesFilterState>({ status: 'all' });
+  const [isMobileSimulated, setIsMobileSimulated] = useState<boolean>(false);
 
   // Sync to localStorage whenever data changes
   useEffect(() => {
@@ -441,6 +444,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         pendingSalesTotalBs,
         openSettingsModal,
         setOpenSettingsModal,
+        isMobileSimulated,
+        setIsMobileSimulated,
         restoreBackup,
         resetToDemo,
       }}

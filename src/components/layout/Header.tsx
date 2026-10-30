@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Bell,
   RefreshCw,
@@ -6,9 +5,12 @@ import {
   Sparkles,
   CloudCheck,
   CloudOff,
+  Smartphone,
+  Monitor,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { formatBs } from '../../utils/currency';
+import { InstallPwaButton } from '../common/InstallPwaButton';
 
 export const Header: React.FC = () => {
   const {
@@ -21,6 +23,8 @@ export const Header: React.FC = () => {
     setActiveModule,
     setSalesFilter,
     setOpenSettingsModal,
+    isMobileSimulated,
+    setIsMobileSimulated,
   } = useApp();
 
   const handleOpenPendingSales = () => {
@@ -134,6 +138,23 @@ export const Header: React.FC = () => {
             )}
             <span className="text-[11px]">{isCloudConfigured ? 'Nube' : 'Local'}</span>
           </button>
+
+          {/* Botón Simular Vista Móvil Estándar (solo en pantallas grandes) */}
+          <button
+            onClick={() => setIsMobileSimulated((prev) => !prev)}
+            title={isMobileSimulated ? "Volver a vista de escritorio" : "Ver en formato estándar móvil"}
+            className={`hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+              isMobileSimulated
+                ? 'bg-rose-50 text-rose-700 border-rose-300 shadow-2xs'
+                : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+            }`}
+          >
+            {isMobileSimulated ? <Monitor className="w-3.5 h-3.5" /> : <Smartphone className="w-3.5 h-3.5" />}
+            <span className="text-[11px]">{isMobileSimulated ? 'Escritorio' : 'Móvil'}</span>
+          </button>
+
+          {/* Botón de Instalar App PWA */}
+          <InstallPwaButton variant="header" />
 
           {/* Botón de Configuración Rápida */}
           <button
